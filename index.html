@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دار سعد – طلب استئجار الفيلا الكاملة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --burgundy: #6B0F1A;
+      --burgundy-dark: #3D0610;
+      --burgundy-mid: #8B1A2A;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --cream: #F5ECD7;
+      --cream-dim: rgba(245, 236, 215, 0.7);
+      --glass: rgba(90, 10, 20, 0.55);
+      --glass-border: rgba(201, 168, 76, 0.3);
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #1a0508;
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Background ── */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at 20% 0%, #5a0f1a 0%, #1a0508 60%),
+        radial-gradient(ellipse at 80% 100%, #3a0a12 0%, transparent 60%);
+    }
+
+    .bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(201, 168, 76, .04) 0, rgba(201, 168, 76, .04) 1px, transparent 0, transparent 50%);
+      background-size: 40px 40px;
+    }
+
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 26, 42, .4), transparent 70%);
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+
+    .bg-glow:nth-child(3) {
+      top: -100px;
+      right: -100px
+    }
+
+    .bg-glow:nth-child(4) {
+      bottom: -100px;
+      left: -100px;
+      animation-delay: -4s
+    }
+
+    @keyframes drift {
+      to {
+        transform: translate(30px, 20px)
+      }
+    }
+
+    /* ── Page wrap ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 80px
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeDown .8s ease both
+    }
+
+    .logo-wrap {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 220px;
+      border-radius: 12px;
+      filter: drop-shadow(0 4px 24px rgba(201, 168, 76, .4));
+      transition: filter .3s, transform .3s;
+    }
+
+    .logo-img:hover {
+      filter: drop-shadow(0 8px 32px rgba(201, 168, 76, .65));
+      transform: scale(1.03);
+    }
+
+    .header h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--cream-dim);
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 1px
+    }
+
+    .divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto 0;
+    }
+
+    /* ── Card ── */
+    .form-card {
+      width: 100%;
+      max-width: 780px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: clamp(24px, 5vw, 52px);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(201, 168, 76, .1);
+      animation: fadeUp .9s ease both .2s;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 24px;
+      margin-top: 36px;
+    }
+
+    .section-label:first-child {
+      margin-top: 0
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--glass-border), transparent);
+    }
+
+    .section-label::before {
+      background: linear-gradient(90deg, transparent, var(--glass-border))
+    }
+
+    /* ── Grid ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px
+    }
+
+    @media(max-width:560px) {
+      .grid-2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* ── Field ── */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--cream-dim);
+      letter-spacing: .5px;
+      font-weight: 500;
+    }
+
+    .field label span {
+      color: var(--gold);
+      margin-right: 2px
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: rgba(26, 5, 8, .5);
+      border: 1px solid rgba(201, 168, 76, .25);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: var(--cream);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 15px;
+      transition: border .25s, box-shadow .25s, background .25s;
+      outline: none;
+      width: 100%;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(245, 236, 215, .3)
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+      background: rgba(40, 8, 12, .7);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .12);
+    }
+
+    .field select {
+      appearance: none;
+      cursor: pointer
+    }
+
+    .select-wrap {
+      position: relative
+    }
+
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      pointer-events: none;
+      font-size: 18px;
+    }
+
+    .field select option {
+      background: #3D0610;
+      color: var(--cream)
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 110px
+    }
+
+    /* ── Villa Wings Display ── */
+    .villa-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, .12);
+      border: 1px solid rgba(201, 168, 76, .35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .wings-showcase {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    @media(max-width:600px) {
+      .wings-showcase {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media(max-width:380px) {
+      .wings-showcase {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .wing-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 16px 8px;
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 12px;
+      background: rgba(26, 5, 8, .35);
+      position: relative;
+      overflow: hidden;
+      animation: shimmerIn .6s ease both;
+    }
+
+    .wing-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201, 168, 76, .06), transparent);
+    }
+
+    .wing-check {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 18px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #1a0508;
+      font-weight: 900;
+    }
+
+    .wing-icon {
+      font-size: 22px;
+      line-height: 1
+    }
+
+    .wing-name {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 600;
+      text-align: center
+    }
+
+    .villa-note {
+      font-size: 12px;
+      color: var(--cream-dim);
+      text-align: center;
+      opacity: .7
+    }
+
+    @keyframes shimmerIn {
+      from {
+        opacity: 0;
+        transform: scale(.95)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1)
+      }
+    }
+
+    /* ── Guests ── */
+    .guests-row {
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .guests-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, color .2s;
+      flex-shrink: 0;
+    }
+
+    .guests-btn:hover {
+      background: var(--gold);
+      color: #1a0508
+    }
+
+    #guestCount {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cream);
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .guest-label {
+      font-size: 13px;
+      color: var(--cream-dim);
+      margin-right: 4px
+    }
+
+    /* ── Submit ── */
+    .submit-wrap {
+      margin-top: 40px;
+      text-align: center
+    }
+
+    .submit-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 60px;
+      background: linear-gradient(135deg, #C9A84C, #8B6914, #C9A84C);
+      background-size: 200% 100%;
+      border: none;
+      border-radius: 50px;
+      color: #1a0508;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-position .4s, box-shadow .3s, transform .2s;
+      box-shadow: 0 8px 32px rgba(201, 168, 76, .3);
+      text-decoration: none;
+    }
+
+    .submit-btn:hover {
+      background-position: 100% 0;
+      box-shadow: 0 12px 40px rgba(201, 168, 76, .45);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0)
+    }
+
+    .submit-btn .btn-icon {
+      font-size: 20px
+    }
+
+    /* ── Success ── */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeUp .6s ease;
+    }
+
+    .success-box .s-icon {
+      font-size: 56px;
+      margin-bottom: 16px
+    }
+
+    .success-box h2 {
+      color: var(--gold);
+      font-size: 26px;
+      margin-bottom: 8px
+    }
+
+    .success-box p {
+      color: var(--cream-dim);
+      font-size: 15px
+    }
+
+    /* ── Note ── */
+    .api-note {
+      margin-top: 28px;
+      padding: 14px 18px;
+      background: rgba(201, 168, 76, .07);
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--cream-dim);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .api-note code {
+      color: var(--gold);
+      background: rgba(201, 168, 76, .1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-wrap">
+    <div class="bg-pattern"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="شعار دار سعد" class="logo-img">
+      </div>
+      <h1>طلب استئجار الفيلا الكاملة</h1>
+      <p>تجربة إقامة فاخرة في قلب الطبيعة</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="form-card">
+
+      <form id="rentalForm">
+        <!-- Web3Forms hidden inputs -->
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY_HERE">
+        <input type="hidden" name="subject" value="طلب استئجار فيلا – دار سعد">
+        <input type="hidden" name="from_name" value="موقع دار سعد">
+
+        <!-- بيانات شخصية -->
+        <div class="section-label">البيانات الشخصية</div>
+        <div class="grid-2">
+          <div class="field">
+            <label><span>*</span> الاسم الكامل</label>
+            <input type="text" name="name" placeholder="محمد عبدالله" required>
+          </div>
+          <div class="field">
+            <label><span>*</span> رقم الجوال</label>
+            <input type="tel" name="phone" placeholder="+966 5X XXX XXXX" required>
+          </div>
+        </div>
+        <div class="field" style="margin-top:20px">
+          <label><span>*</span> البريد الإلكتروني</label>
+          <input type="email" name="email" placeholder="example@email.com" required>
+        </div>
+
+        <!-- مميزات الفيلا الكاملة -->
+        <div class="section-label">الفيلا الكاملة – ٥ أجنحة متكاملة</div>
+        <div style="text-align:center;margin-bottom:16px">
+          <span class="villa-badge">✦ استئجار الفيلا بالكامل مع جميع الأجنحة ✦</span>
+        </div>
+        <div class="wings-showcase">
+          <div class="wing-item" style="animation-delay:.05s">
+            <div class="wing-check">✓</div>
+            <div class="wing-icon">🏡</div>
+            <div class="wing-name">الجناح الأول</div>
+          </div>
+          <div class="wing-item" style="animation-delay:.1s">
+            <div class="wing-check">✓</div>
+            <div class="wing-icon">🏡</div>
+            <div class="wing-name">الجناح الثاني</div>
+          </div>
+          <div class="wing-item" style="animation-delay:.15s">
+            <div class="wing-check">✓</div>
+            <div class="wing-icon">🏡</div>
+            <div class="wing-name">الجناح الثالث</div>
+          </div>
+          <div class="wing-item" style="animation-delay:.2s">
+            <div class="wing-check">✓</div>
+            <div class="wing-icon">🏡</div>
+            <div class="wing-name">الجناح الرابع</div>
+          </div>
+          <div class="wing-item" style="animation-delay:.25s">
+            <div class="wing-check">✓</div>
+            <div class="wing-icon">🏡</div>
+            <div class="wing-name">الجناح الخامس</div>
+          </div>
+        </div>
+        <p class="villa-note">يشمل الحجز الفيلا بجميع أجنحتها الخمسة كوحدة متكاملة</p>
+        <input type="hidden" name="wing" value="الفيلا كاملة – ٥ أجنحة">
+
+        <!-- تفاصيل الحجز -->
+        <div class="section-label">تفاصيل الحجز</div>
+        <div class="grid-2">
+          <div class="field">
+            <label><span>*</span> تاريخ الوصول</label>
+            <input type="date" name="check_in" required>
+          </div>
+          <div class="field">
+            <label><span>*</span> تاريخ المغادرة</label>
+            <input type="date" name="check_out" required>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:20px">
+          <label>عدد الأفراد</label>
+          <div class="guests-row">
+            <button type="button" class="guests-btn" onclick="changeGuests(-1)">−</button>
+            <span id="guestCount">2</span>
+            <span class="guest-label">أفراد</span>
+            <button type="button" class="guests-btn" onclick="changeGuests(1)">+</button>
+          </div>
+          <input type="hidden" name="guests" id="guestHidden" value="2">
+        </div>
+
+        <div class="field" style="margin-top:20px">
+          <label>مناسبة الزيارة</label>
+          <div class="select-wrap">
+            <select name="occasion">
+              <option value="">اختر المناسبة</option>
+              <option>إجازة عائلية</option>
+              <option>مناسبة خاصة</option>
+              <option>تجمع أصدقاء</option>
+              <option>اجتماع عمل</option>
+              <option>شهر العسل</option>
+              <option>أخرى</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- طلبات خاصة -->
+        <div class="section-label">طلبات وملاحظات</div>
+        <div class="field">
+          <label>طلبات خاصة أو ملاحظات إضافية</label>
+          <textarea name="notes" placeholder="اذكر أي متطلبات خاصة، استفسارات، أو رغبات إضافية..."></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn" id="submitBtn">
+
+            إرسال الطلب
+          </button>
+        </div>
+
+        <div class="api-note">
+          ⚙️ لتفعيل الإرسال: أنشئ حساباً مجانياً على <strong>web3forms.com</strong> ثم ضع مفتاحك بدلاً من
+          <code>YOUR_WEB3FORMS_KEY_HERE</code>
+        </div>
+      </form>
+
+      <!-- Success message -->
+      <div class="success-box" id="successBox">
+        <div class="s-icon">✦</div>
+        <h2>تم إرسال طلبك بنجاح</h2>
+        <p>شكراً لاهتمامك بفيلا دار سعد<br>سيتواصل معك فريقنا خلال 24 ساعة</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Guest counter
+    let guests = 2;
+    function changeGuests(d) {
+      guests = Math.max(1, Math.min(20, guests + d));
+      document.getElementById('guestCount').textContent = guests;
+      document.getElementById('guestHidden').value = guests;
+    }
+
+    // Date defaults
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelector('[name=check_in]').min = today;
+    document.querySelector('[name=check_out]').min = today;
+    document.querySelector('[name=check_in]').addEventListener('change', function () {
+      document.querySelector('[name=check_out]').min = this.value;
+    });
+
+    // Form submit
+    document.getElementById('rentalForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'جارٍ الإرسال...';
+      btn.disabled = true;
+
+      const data = new FormData(this);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data
+        });
+        const json = await res.json();
+        if (json.success) {
+          this.style.display = 'none';
+          document.getElementById('successBox').style.display = 'block';
+        } else {
+          alert('حدث خطأ، يرجى المحاولة لاحقاً');
+          btn.textContent = 'إرسال الطلب';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('تعذر الاتصال، تحقق من الإنترنت');
+        btn.textContent = 'إرسال الطلب';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+
+</html>
